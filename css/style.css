@@ -1,0 +1,13 @@
+body {
+    font-family: "DM Sans", sans-serif;
+    margin: 0;
+  }
+
+.header-section {
+      display: flex;
+      justify-content: center;
+  }
+
+.logo {
+    width: 400px;
+  }
