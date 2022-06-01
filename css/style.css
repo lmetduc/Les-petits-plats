@@ -3,11 +3,69 @@ body {
     margin: 0;
   }
 
-.header-section {
+.header_section {
       display: flex;
       justify-content: center;
   }
 
 .logo {
     width: 400px;
+    margin: 20px;
   }
+
+.main_section {
+    display: flex;
+    justify-content: center;
+}
+
+.searchbar {
+    display: flex;
+    height: 50px;
+    width: 90%;
+    margin: 20px;
+    background: #E7E7E7;
+    border: #E7E7E7;
+    border-radius: 5px;
+    padding: 0 0 0 20px;
+    position: absolute;
+}
+
+.fa-search {
+    position: relative;
+    color: black;
+    font-size: 22px;
+    margin: 35px 10px 0 10px;
+    z-index: 1;
+    right: -40%;
+}
+
+.filter_section {
+  display: flex;
+  flex-direction: row;
+  margin: 20px 10px 10px 45px;
+}
+
+.filter {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 5px;
+  height: 40px;
+  max-width: 200px;
+  padding: 20px 20px 10px 20px;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.components {
+  background: #4980EE;
+}
+
+.tools {
+  background: #86D6A8;
+}
+
+.sets {
+  background: #DD6D5B;
+}
