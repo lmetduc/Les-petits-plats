@@ -1,32 +1,31 @@
-import { ReceipeCard } from "../templates/receipeCard.js";
-import { ReceipeFactory } from "../factories/receipeFactory.js";
+import { RecipeCard } from "../templates/recipeCard.js";
+import { RecipeFactory } from "../factories/recipeFactory.js";
 
-async function getReceipes() {
-    const { receipes } = await fetch("data/receipe.json").then(
-    (data) => data.json()
-);
-
-let receipeList = [];
-receipes.forEach((receipe) => {
-    const receipeModel = new ReceipeFactory(receipe, "json");
-    receipeList.push(receipeModel);
-});
-    return receipeList;
+export async function getRecipes() {
+  let { recipes } = await fetch("data/recipes.json")
+    .then(response => response.json());
+  
+  let recipeList = [];
+  recipes.forEach((recipe) => {
+    const recipeModel = new RecipeFactory(recipe, "json");
+    recipeList.push(recipeModel);
+  });
+  return recipeList;
 }
 
-async function displayData(receipes) {
-    const receipesSection = document.querySelector(".card");
+function displayData(recipes) {
+  const recipesSection = document.querySelector(".card");
 
-    receipes.forEach((receipe) => {
-        const receipeCard = new ReceipeCard(receipe);
-        const userCardDOM = receipeCard.getUserCardDOM();
-        receipesSection.appendChild(userCardDOM);
-    });
+  recipes.forEach((recipe) => {
+    const recipeCard = new RecipeCard(recipe);
+    const userCardDOM = recipeCard.getUserCardDOM();
+    recipesSection.appendChild(userCardDOM);
+  });
 }
 
 async function init() {
-    const receipes = await getReceipes();
-    displayData(receipes);
+  const recipes = await getRecipes();
+  displayData(recipes);
 }
 
 init();
