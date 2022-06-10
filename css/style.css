@@ -63,6 +63,11 @@ body {
   object-fit: cover;
   padding: 0 20px;
   cursor: pointer;
+  position: relative;
+}
+
+.filter label {
+ cursor: pointer;
 }
 
 .filter_select_choice {
@@ -78,20 +83,33 @@ body {
   text-align: center;
   justify-content: center;
   z-index: 1;
-  width: 224px;
-  top: -28px;
-
+  top: 50px;
+  left: 0;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  gap: 10px;
+  max-height: 300px;
+  overflow: scroll;
 }
 
-.components {
+.filter.opened .filter_select_choice {
+  display: grid;
+}
+
+.filter_select_choice span {
+  display: block;
+  width: max-content;
+}
+
+.components, .components .filter_select_choice {
   background: #4980EE;
 }
 
-.tools {
+.tools, .tools .filter_select_choice {
   background: #86D6A8;
 }
 
-.sets {
+.sets, .sets .filter_select_choice {
   background: #DD6D5B;
 }
 
@@ -236,4 +254,3 @@ border-radius: 5px 5px 0 0;
   overflow: hidden;
 
 }
-

@@ -1,74 +1,96 @@
-import { displayData } from "../pages/index.js";
-import { getRecipes } from "../pages/index.js";
+//permet de selectionner chaque filtre
 
-const filterSelect = document.querySelectorall(".filter");
-const filterSelectLabel = document.querySelector(".filter__select label");
-const filterSelectChoice = document.querySelector(".filter_select_choice");
+const componentsFilterButton = document.querySelector(".components");
+const toolsFilterButton = document.querySelector(".tools");
+const setsFilterButton = document.querySelector(".sets");
 
-filterSelect.addEventListener("click", displayChoices);
+// permet de déclencher au clic differentes fonctions telles que l'ouverture du filtre, sa fermeture et celle des autres lorsque l'un d'eux est deja selectionné
 
-function displayChoices() {
-    filterSelectChoice.style.display = "block"
-    filterSelectChoice.innerHTML = "";
-    buildSelectBox();
-    filterSelect.style.display = "none";
-}
+componentsFilterButton.addEventListener("click", function() {
+    triggerFilterOptions(componentsFilterButton);
+    closeFilterOptions(toolsFilterButton);
+    closeFilterOptions(setsFilterButton);
+});
+toolsFilterButton.addEventListener("click", function() {
+    triggerFilterOptions(toolsFilterButton);
+    closeFilterOptions(componentsFilterButton);
+    closeFilterOptions(setsFilterButton);
+});
+setsFilterButton.addEventListener("click", function() {
+    triggerFilterOptions(setsFilterButton);
+    closeFilterOptions(toolsFilterButton);
+    closeFilterOptions(componentsFilterButton);
+});
 
-function closeOptions() {
-    filterSelectOption.style.display = "none";
-    filterSelect.style.display = "flex";
-}
 
-function updateValue(value) {
-    filterSelectLabel.innerHTML = value;
-  }
+// fonction permettant d'afficher les données à l'interieur du filtre
+export function displayFilters (recipes) {
+    const componentFilterSection = document.querySelector(".components_filter");
+    const toolFilterSection = document.querySelector(".tools_filter");
+    const setFilterSection = document.querySelector(".sets_filter");
+    const options = dataList(recipes);
 
-function sortMedias(sortType) {
-    let mediasSorted = recipes.ingredient;
-    mediasSorted = medias.sort((a, b) => b.likes - a.likes);
-    displayData(mediasSorted);
-}
-
-function buildSelectBox() {
-    let orderedSortOptions = [];
-    sortOptions.forEach((s) => {
-      if (s.value !== currentSort) {
-        orderedSortOptions.push(s);
-      }
+    options.components.forEach((componentOption) => {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = componentOption ;
+      componentFilterSection.appendChild(filterChoice);
     });
-  
-    // construit l'élément pour le tri actuellement sélectionné
-    const currentSortSpan = document.createElement("span");
-    currentSortSpan.classList.add(
-      "select__option",
-      "selected__option",
-      currentSort
-    );
-    const currentSortLabel = document.createElement("label");
-    currentSortLabel.innerHTML = currentSortName;
-    const arrowIcon = document.createElement("i");
-    arrowIcon.classList.add("filter__arrow", "fas", "fa-angle-up");
-  
-    currentSortSpan.appendChild(currentSortLabel);
-    currentSortSpan.appendChild(arrowIcon);
-    currentSortSpan.addEventListener("click", closeOptions);
-    filterSelectOption.appendChild(currentSortSpan);
-  
-    // ajoute les autres tri possibles
-    orderedSortOptions.forEach((o) => {
-      const sortSpan = document.createElement("span");
-      sortSpan.classList.add("select__option", o.value);
-      sortSpan.innerHTML = o.name;
-      sortSpan.addEventListener("click", function () {
-        filterSelected(o.value, o.name);
-      });
-      filterSelectOption.appendChild(sortSpan);
+
+    options.tools.forEach((toolOption) => {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = toolOption ;
+      toolFilterSection.appendChild(filterChoice);
+    });
+
+    options.sets.forEach((setOption) => {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = setOption ;
+      setFilterSection.appendChild(filterChoice);
     });
 }
 
-function filterSelected(sort, sortName) {
-    sortMedias(sort);
-    closeOptions();
-    updateValue(sort);
+// permet de creer trois tableaux avec toutes les données
+function dataList (recipes) {
+    let componentsOption = [];
+    let toolOption = [];
+    let setOption = [];
+
+    recipes.forEach(recipe => {
+        let ingredientNameList = [];
+        recipe.ingredients.forEach(ingredient => {
+            ingredientNameList.push(ingredient.ingredient);
+        })
+        componentsOption = componentsOption.concat(ingredientNameList);
+        
+        toolOption = toolOption.concat(recipe.ustensils);
+
+        setOption.push(recipe.appliance);
+    });
+
+    return {
+        components: unique(componentsOption),
+        tools: unique(toolOption),
+        sets: unique(setOption)
+    };
 }
 
+
+function unique(dataList) {
+    // permet de supprimer les doublons
+    const unique = dataList.filter((v, i, a) => a.indexOf(v) === i);
+    // permet de trier par ordre alphabêtique
+    return unique.sort((a, b) => a.localeCompare(b));
+}
+
+// permet de fermer ou d'ouvrir les filtres
+function triggerFilterOptions(element) {
+    if (element.classList.contains("opened")) {
+        closeFilterOptions(element);
+    } else {
+        element.classList.add("opened");
+    }
+}
+
+function closeFilterOptions(element) {
+    element.classList.remove("opened");
+}
