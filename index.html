@@ -14,39 +14,60 @@
 
 <body>
   <header>
-      <div class="header_section">
-        <img src="assets/logo/logo.png" class="logo" />
-      </div>
+    <div class="header_section">
+      <img src="assets/logo/logo.png" class="logo" />
+    </div>
   </header>
 
   <main id="main">
 
-      <div class="main">
-<!-- search -->
-    <div class="main_section">
+    <div class="main">
+      <!-- search -->
+      <div class="main_section">
         <i class="fas fa-search"></i>
         <input class="searchbar" type="text" name="search" placeholder="Rechercher une recette">
-    </div>
-<!-- filter -->
-    <div class="filter_section">
+      </div>
+      <!-- filter -->
+      <div class="filter_section">
         <div class="filter components">
+          <div class="filter-label">
             <label>Ingrédients</label>
-            <div class="filter_select_choice components_filter"></div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="filter-search">
+            <input placeholder="Rechercher un ingrédient" id="components" />
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <div class="filter_select_choice components_filter"></div>
         </div>
         <div class="filter tools">
+          <div class="filter-label">
             <label>Appareils</label>
-            <div class="filter_select_choice tools_filter"></div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="filter-search">
+            <input placeholder="Rechercher un appareil" id="tools" />
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <div class="filter_select_choice tools_filter"></div>
         </div>
         <div class="filter sets">
+          <div class="filter-label">
             <label>Ustensiles</label>
-            <div class="filter_select_choice sets_filter"></div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="filter-search">
+            <input placeholder="Rechercher un ustensile" id="sets" />
+            <i class="fas fa-chevron-up"></i>
+          </div>
+          <div class="filter_select_choice sets_filter"></div>
         </div>
-    </div>
-<!-- cards -->
-    <div class="card"></div>
+      </div>
+      <!-- cards -->
+      <div class="card"></div>
 
     </div>
-   
+
   </main>
 
   <script type="module" src="scripts/pages/index.js"></script>

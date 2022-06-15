@@ -1,6 +1,6 @@
 import { RecipeCard } from "../templates/recipeCard.js";
 import { RecipeFactory } from "../factories/recipeFactory.js";
-import { displayFilters } from "../utils/filter.js"
+import { Filters } from "../utils/filter.js"
 
 export async function getRecipes() {
   let { recipes } = await fetch("data/recipes.json")
@@ -27,7 +27,8 @@ function displayData(recipes) {
 async function init() {
   const recipes = await getRecipes();
   displayData(recipes);
-  displayFilters(recipes);
+  const filters = new Filters(recipes);
+  filters.displayFilters();
 }
 
 init();
