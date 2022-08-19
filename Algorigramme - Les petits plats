@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-19T14:49:36.939Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="sT33q4avie9jNAXVS9ml" version="20.2.5" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2022-08-19T16:39:20.332Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="iBYe17QiiW6V0nJSw95B" version="20.2.5" type="github" pages="4">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="946" dy="1703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#F1FAEE" math="0" shadow="0">
       <root>
@@ -600,7 +600,7 @@
             <mxPoint x="319" y="280" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y9xJWjTuM5tiMW9M9GCh-29" value="Inout utilisateur dans la barre de recherche" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+        <mxCell id="y9xJWjTuM5tiMW9M9GCh-29" value="Input utilisateur dans la barre de recherche" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="259" y="180" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="y9xJWjTuM5tiMW9M9GCh-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="y9xJWjTuM5tiMW9M9GCh-33" target="6n8n3RHHkZv4YhOgsB7x-2">
