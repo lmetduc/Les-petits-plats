@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-19T14:44:29.820Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="qyjLe6xkx9xvSOWLUEGt" version="20.2.5" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2022-08-19T14:49:36.939Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="sT33q4avie9jNAXVS9ml" version="20.2.5" type="github" pages="4">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="946" dy="1703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#F1FAEE" math="0" shadow="0">
       <root>
@@ -565,7 +565,7 @@
         <mxCell id="y9xJWjTuM5tiMW9M9GCh-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="266" y="80" width="106" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="y9xJWjTuM5tiMW9M9GCh-21" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Native approach&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="y9xJWjTuM5tiMW9M9GCh-21" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Algorigramm&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="60" y="60" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="y9xJWjTuM5tiMW9M9GCh-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="y9xJWjTuM5tiMW9M9GCh-26" target="y9xJWjTuM5tiMW9M9GCh-33">
@@ -608,7 +608,26 @@
             <mxPoint x="319" y="590" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y9xJWjTuM5tiMW9M9GCh-33" value="Parcourt chaque recette" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
+        <mxCell id="0Yb2C0DvPDOyUvC-A2yh-1" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="y9xJWjTuM5tiMW9M9GCh-32">
+          <mxGeometry x="-0.1167" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0Yb2C0DvPDOyUvC-A2yh-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="y9xJWjTuM5tiMW9M9GCh-33" target="6n8n3RHHkZv4YhOgsB7x-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="610" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="130" y="530" />
+              <mxPoint x="130" y="1510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0Yb2C0DvPDOyUvC-A2yh-3" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="0Yb2C0DvPDOyUvC-A2yh-2">
+          <mxGeometry x="-0.8682" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="y9xJWjTuM5tiMW9M9GCh-33" value="Parcourt chaque recette tant qu&#39;il reste des recettes ?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="259" y="500" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="6n8n3RHHkZv4YhOgsB7x-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6n8n3RHHkZv4YhOgsB7x-2" target="6n8n3RHHkZv4YhOgsB7x-8">
@@ -686,8 +705,14 @@
         <mxCell id="6n8n3RHHkZv4YhOgsB7x-19" value="Affichage d&#39;un message d&#39;erreur" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="257.87" y="1239" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="6n8n3RHHkZv4YhOgsB7x-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="6n8n3RHHkZv4YhOgsB7x-20" target="6n8n3RHHkZv4YhOgsB7x-21">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="6n8n3RHHkZv4YhOgsB7x-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6n8n3RHHkZv4YhOgsB7x-20" target="y9xJWjTuM5tiMW9M9GCh-33">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="730" y="810" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="670" y="1430" />
+              <mxPoint x="670" y="530" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="6n8n3RHHkZv4YhOgsB7x-20" value="Les 3 filtres s&#39;actualisent en fonction des recettes affichées sur la page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="478" y="1400" width="120" height="60" as="geometry" />
