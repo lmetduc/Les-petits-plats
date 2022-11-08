@@ -22,13 +22,20 @@
   <main id="main">
 
     <div class="main">
-      <!-- search -->
-      <div class="main_section">
-        <i class="fas fa-search"></i>
-        <input class="searchbar" type="text" name="search" placeholder="Rechercher une recette">
-      </div>
+
+
       <!-- filter -->
-      <div class="filter_section">
+      <div class="main_section">
+              <!-- search -->
+        <div class="filter_section">
+          <div class="search_section">
+            <input class="searchbar" type="text" name="search" placeholder="Rechercher une recette">
+            <i class="fas fa-search"></i>
+          </div>
+
+        </div>
+        <div class="tag"></div>
+        <div class="filter_card">
         <div class="filter components">
           <div class="filter-label">
             <label>Ingrédients</label>
@@ -62,6 +69,7 @@
           </div>
           <div class="filter_select_choice sets_filter"></div>
         </div>
+      </div>
       </div>
       <!-- cards -->
       <div class="card"></div>

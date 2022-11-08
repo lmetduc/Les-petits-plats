@@ -3,6 +3,11 @@ body {
     margin: 0;
   }
 
+  main {
+    max-width: 1420px;
+    margin: 0 auto;
+  }
+
 .header_section {
       display: flex;
       justify-content: center;
@@ -15,36 +20,42 @@ body {
 
 /* style filter */
 
-.main_section {
+.filter_section {
     display: flex;
     justify-content: center;
 }
 
+.search_section {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 80%;
+}
+
 .searchbar {
-    display: flex;
     height: 50px;
-    width: 90%;
-    margin: 20px;
+    width: 100%;
     background: #E7E7E7;
     border: #E7E7E7;
     border-radius: 5px;
     padding: 0 0 0 20px;
-    position: absolute;
 }
 
 .fa-search {
-    position: relative;
+    position: absolute;
     color: black;
     font-size: 22px;
-    margin: 35px 10px 0 10px;
     z-index: 1;
-    right: -40%;
+    top: 50%;
+    right: 20px;
+    transform: translate(-50%, -50%);
 }
 
-.filter_section {
+.main_section {
   display: flex;
-  flex-direction: row;
-  margin: 20px 10px 10px 45px;
+  flex-direction: column;
+  padding: 45px;
 }
 
 .filter {
@@ -54,18 +65,18 @@ body {
   font-size: 22px;
   font-weight: bold;
   border-radius: 5px;
-  height: 50px;
+  height: 70px;
   /* max-width: 200px; */
-  margin: 10px;
-  justify-content: center;
-  align-items: center;
+  margin:20px 0 10px  0;
+  justify-content:left;
+  align-items: left;
   object-fit: cover;
   cursor: pointer;
   position: relative;
 }
 
 .filter input {
-  width: 700px;
+  width: 580px;
 }
 
 .filter label {
@@ -87,14 +98,13 @@ body {
   text-align: center;
   justify-content: center;
   z-index: 1;
-  top: 50px;
+  top: 70px;
   left: 0;
   grid-template-columns: repeat(3, 1fr);
   padding: 20px;
   gap: 10px;
   max-height: 300px;
   overflow: scroll;
-  width: 680px;
 }
 
 .filter-search, .filter-label {
@@ -116,7 +126,7 @@ body {
   border: #E7E7E7;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 0px;
   color: white;
   font-size: 22px;
 }
@@ -206,14 +216,10 @@ color: white;
 
 .card {
   display: flex;
-  margin: 10px;
+  margin: 10px 45px 10px 45px;
   flex-wrap: wrap;
-  justify-content: center;
-}
-
-.recipe-card {
-  display: block;
-  margin: 20px;
+  justify-content: space-around;
+  gap: 40px;
 }
 
 .recipe_image {
@@ -292,3 +298,57 @@ border-radius: 5px 5px 0 0;
   overflow: hidden;
 
 }
+
+.filter_card {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  max-width: 600px;
+  justify-content: space-between;
+}
+
+.tag {
+  display: flex;
+  flex-direction: row;
+  margin:20px 0 0 0;
+}
+
+.tagsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 35px;
+  border-radius: 5px;
+  margin: 5px 10px 5px 0;
+  font-size: 20px;
+}
+
+.tagsection-component {
+  background:#4980EE;
+}
+
+.tagsection-tool {
+  background:#86D6A8;
+}
+
+.tagsection-set {
+  background: #DD6D5B;
+
+}
+
+.tagname {
+  color: white;
+  margin: 6px;
+  padding: 0 10px 0 0;
+}
+
+.icon {
+  color: white;
+  margin: 6px;
+
+}
+
+
+
+

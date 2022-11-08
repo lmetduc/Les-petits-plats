@@ -7,8 +7,8 @@ export class Recipe {
     this.servings = data.servings;
     let ingredients = [];
     data.ingredients.forEach((ingredientInfo) => {
-    const ingredient = new Ingredient(ingredientInfo);
-    ingredients.push(ingredient);
+      const ingredient = new Ingredient(ingredientInfo);
+      ingredients.push(ingredient);
     });
     this.ingredients = ingredients;
 
