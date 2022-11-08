@@ -1,6 +1,8 @@
 import { RecipeFactory } from "../factories/recipeFactory.js";
 import { RecipeCard } from "../templates/recipeCard.js";
 
+
+
 //permet de sélectionner l'emplacement des recettes et de la barre de recherche sur la page
 
 const recipesSection = document.querySelector(".card");
@@ -42,9 +44,29 @@ async function getRecipes() {
 }
 
 /**
- * 
+ * getFirstOccurence
+ */
+ function getFirstOccurence(recipes, id) {
+  return recipes.findIndex((recipe) => recipe.id === id);
+}
+
+/**
+ * Supprime les doublons dans un tableau de recette
+ */
+function uniqueRecipes(recipes) {
+  return recipes.filter((recipe, idx) => {
+    return idx === getFirstOccurence(recipes, recipe.id);
+  
+  });
+}
+
+/**
+ * Filtre les recettes par mots clefs
  */
  function sortRecipesByKeywords(recipes) {
+  if (!recipes || recipes.length <= 0) {
+    return [];
+  }
   const results = [];
 
   const query = searchBar.value.toLowerCase();
@@ -152,7 +174,6 @@ async function getRecipes() {
  */
 
  function sortRecipesByToolsTags(recipes) {
-  debugger
   if (listToolTag.length === 0) {
     return recipes;
   }
@@ -188,8 +209,10 @@ function sortAll(allRecipes) {
   recipes = sortRecipesByIngredientsTags(recipes);
   recipes = sortRecipesByToolsTags(recipes);
   recipes = sortRecipesBySetTags(recipes);
+console.log(recipes);
+console.log(uniqueRecipes(recipes))
+  return uniqueRecipes(recipes);
 
-  return recipes;
 }
 
 /**
@@ -198,7 +221,7 @@ function sortAll(allRecipes) {
 function updateDisplayRecipes(recipesToDisplay) {
   removeDisplayRecipes();
 
-  if (recipesToDisplay.length) {
+  if (recipesToDisplay && recipesToDisplay.length > 0) {
     dislpayRecipes(recipesToDisplay);
   } else {
     recipesSection.innerHTML = "Aucune correspondance n'a été trouvée";
