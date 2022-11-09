@@ -1,8 +1,6 @@
 import { RecipeFactory } from "../factories/recipeFactory.js";
 import { RecipeCard } from "../templates/recipeCard.js";
 
-
-
 //permet de sélectionner l'emplacement des recettes et de la barre de recherche sur la page
 
 const recipesSection = document.querySelector(".card");
@@ -22,6 +20,7 @@ let allRecipes = [];
 let listIngredientTag = [];
 let listToolTag = [];
 let listSetTag = [];
+let dataListValues = { components: [], sets: [], tools: [] };
 
 /**
  * Récupération des données des recettes de recipes.json
@@ -44,29 +43,9 @@ async function getRecipes() {
 }
 
 /**
- * getFirstOccurence
+ *
  */
- function getFirstOccurence(recipes, id) {
-  return recipes.findIndex((recipe) => recipe.id === id);
-}
-
-/**
- * Supprime les doublons dans un tableau de recette
- */
-function uniqueRecipes(recipes) {
-  return recipes.filter((recipe, idx) => {
-    return idx === getFirstOccurence(recipes, recipe.id);
-  
-  });
-}
-
-/**
- * Filtre les recettes par mots clefs
- */
- function sortRecipesByKeywords(recipes) {
-  if (!recipes || recipes.length <= 0) {
-    return [];
-  }
+function sortRecipesByKeywords(recipes) {
   const results = [];
 
   const query = searchBar.value.toLowerCase();
@@ -81,11 +60,13 @@ function uniqueRecipes(recipes) {
     const includesInName = name.toLowerCase().includes(query);
     if (includesInName) {
       results.push(recipes[i]);
+      continue;
     }
 
     const includesInDescription = description.toLowerCase().includes(query);
     if (includesInDescription) {
       results.push(recipes[i]);
+      continue;
     }
 
     let includesInIngredients = false;
@@ -106,7 +87,7 @@ function uniqueRecipes(recipes) {
  * Tri en fonction des filtres ingrédients
  */
 
- function sortRecipesByIngredientsTags(recipes) {
+function sortRecipesByIngredientsTags(recipes) {
   if (listIngredientTag.length === 0) {
     return recipes;
   }
@@ -127,7 +108,7 @@ function uniqueRecipes(recipes) {
     return isValid;
   });
 
-    // let results = [];
+  // let results = [];
 
   // TODO : 1) Récupérer les tags qui sont dans filters.COMPONENTS_TAGS_LIST
   // TODO : 2) Si COMPONENTS_TAGS_LIST est vide on return recipes
@@ -140,7 +121,7 @@ function uniqueRecipes(recipes) {
  * Tri en fonction des filtres appareils
  */
 
- function sortRecipesBySetTags(recipes) {
+function sortRecipesBySetTags(recipes) {
   if (listSetTag.length === 0) {
     return recipes;
   }
@@ -150,9 +131,9 @@ function uniqueRecipes(recipes) {
     listSetTag.forEach((tag) => {
       let currentSetFound = false;
 
-        if (recipe.ustensils.includes(tag)) {
-          currentSetFound = true;
-        }
+      if (recipe.ustensils.includes(tag)) {
+        currentSetFound = true;
+      }
       if (!currentSetFound) {
         isValid = false;
       }
@@ -166,14 +147,13 @@ function uniqueRecipes(recipes) {
   // TODO : 3) Sinon on cherche les recipes qui on des tags qui sont dans filters.COMPONENTS_TAGS_LIST
 
   //return results
-  
 }
 
 /**
  * Tri en fonction des filtres ustensiles
  */
 
- function sortRecipesByToolsTags(recipes) {
+function sortRecipesByToolsTags(recipes) {
   if (listToolTag.length === 0) {
     return recipes;
   }
@@ -182,10 +162,10 @@ function uniqueRecipes(recipes) {
     let isValid = true;
     listToolTag.forEach((tag) => {
       let currentToolFound = false;
-        if (recipe.appliance.includes(tag)) {
-          currentToolFound = true;
-        }
-      
+      if (recipe.appliance.includes(tag)) {
+        currentToolFound = true;
+      }
+
       if (!currentToolFound) {
         isValid = false;
       }
@@ -197,7 +177,6 @@ function uniqueRecipes(recipes) {
   // TODO : 1) Récupérer les tags qui sont dans filters.COMPONENTS_TAGS_LIST
   // TODO : 2) Si COMPONENTS_TAGS_LIST est vide on return recipes
   // TODO : 3) Sinon on cherche les recipes qui on des tags qui sont dans filters.COMPONENTS_TAGS_LIST
-
 }
 
 /**
@@ -209,10 +188,13 @@ function sortAll(allRecipes) {
   recipes = sortRecipesByIngredientsTags(recipes);
   recipes = sortRecipesByToolsTags(recipes);
   recipes = sortRecipesBySetTags(recipes);
-console.log(recipes);
-console.log(uniqueRecipes(recipes))
-  return uniqueRecipes(recipes);
 
+  dataListValues = dataList(recipes);
+
+  displayFilters(recipes);
+  updateDisplayRecipes(recipes);
+
+  return recipes;
 }
 
 /**
@@ -221,7 +203,7 @@ console.log(uniqueRecipes(recipes))
 function updateDisplayRecipes(recipesToDisplay) {
   removeDisplayRecipes();
 
-  if (recipesToDisplay && recipesToDisplay.length > 0) {
+  if (recipesToDisplay.length) {
     dislpayRecipes(recipesToDisplay);
   } else {
     recipesSection.innerHTML = "Aucune correspondance n'a été trouvée";
@@ -239,13 +221,12 @@ function dislpayRecipes(recipesToDisplay) {
 }
 
 /**
- * 
+ *
  * TODO: check spec for keyup
  */
 searchBar.addEventListener("keyup", async (e) => {
   let recipes = await getRecipes();
-  recipes = sortAll(recipes);
-  updateDisplayRecipes(recipes);
+  sortAll(recipes);
 });
 
 /**
@@ -292,10 +273,7 @@ function updateComponentFilter(componentOptions) {
       filterOption.remove();
 
       // TODO : Lancer le sortAll
-      let sortedRecipes = sortAll(allRecipes);
-
-      // TODO : Afficahge des recettes
-      updateDisplayRecipes(sortedRecipes);
+      sortAll(allRecipes);
     });
   });
 }
@@ -303,7 +281,7 @@ function updateComponentFilter(componentOptions) {
 //permet de recuperer la valeur de la recherche et de la comparer
 function componentFilterSearch(e) {
   const value = e.target.value;
-  const componentOptions = components.filter((component) =>
+  const componentOptions = dataListValues.components.filter((component) =>
     component.toLowerCase().includes(value.toLowerCase())
   );
   updateComponentFilter(componentOptions);
@@ -327,10 +305,7 @@ function updateToolFilter(toolOptions) {
       filterOption.remove();
 
       // TODO : Lancer le sortAll
-      let sortedRecipes = sortAll(allRecipes);
-
-      // TODO : Afficahge des recettes
-      updateDisplayRecipes(sortedRecipes);
+      sortAll(allRecipes);
     });
   });
 }
@@ -361,9 +336,7 @@ function updateSetFilter(setOptions) {
       filterOption.remove();
 
       // TODO : Lancer le sortAll
-      let sortedRecipes = sortAll(allRecipes);
-      // TODO : Afficahge des recettes
-      updateDisplayRecipes(sortedRecipes);
+      sortAll(allRecipes);
     });
   });
 }
@@ -393,6 +366,9 @@ function openFilterOptions(item) {
   filterLabel.style.display = "none";
   const filterSearch = item.querySelector(".filter-search");
   filterSearch.style.display = "flex";
+
+  const filterInput = item.querySelector("input");
+  filterInput.focus();
 }
 
 //permet d'ouvrir ou de fermer les filtres
@@ -407,8 +383,8 @@ function triggerFilterOptions(item) {
 /**
  * Gestion de la recherche des filtres
  */
-componentsFilterInput.addEventListener("keyup", async function () {
-  componentFilterSearch(componentsFilterInput)
+componentsFilterInput.addEventListener("keyup", function (e) {
+  componentFilterSearch(e);
 });
 
 toolsFilterInput.addEventListener("keyup", function () {
@@ -423,7 +399,7 @@ setsFilterInput.addEventListener("keyup", function () {
  * Affiche les filtres sans doublons et dans l'ordre alphabétique
  */
 
- function unique(dataList) {
+function unique(dataList) {
   // permet de supprimer les doublons
   const unique = dataList.filter((v, i, a) => a.indexOf(v) === i);
   // permet de trier par ordre alphabetique
@@ -460,8 +436,13 @@ function dataList(recipes) {
   };
 }
 
+// let dataListValues = {};
+
 function displayFilters(recipes) {
-  let { components, tools, sets } = dataList(recipes);
+  dataListValues = dataList(recipes);
+
+  let { components, tools, sets } = dataListValues;
+
   updateComponentFilter(components);
   updateToolFilter(tools);
   updateSetFilter(sets);
@@ -470,9 +451,15 @@ function displayFilters(recipes) {
 /**
  * Supprimer les tags
  */
- function removeTag(e, name) {
+function removeTag(e, name) {
   const tagSection = e.currentTarget;
   tagSection.remove();
+
+  // todo: en fonction du name: retirer du bon tableau (voir listToolTag...)
+  // appeler sortall pour refaire tout le tri
+  
+
+
   // const tagRemoval = document.querySelector(".tagsection")
   // tagRemoval.style.display= "none";
 }
