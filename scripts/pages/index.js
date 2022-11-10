@@ -261,20 +261,35 @@ function updateComponentFilter(componentOptions) {
   componentFilterSection.innerHTML = "";
 
   componentOptions.forEach((componentOption) => {
-    const filterChoice = document.createElement("span");
-    filterChoice.innerHTML = componentOption;
-    componentFilterSection.appendChild(filterChoice);
+    // let found = false;
+    // for (i = 0; i < listIngredientTag.length; i++) {
+    //   if (listIngredientTag[i] === componentOption) {
+    //      found = true;
+    //   }
+    // }
+    //
+    // if (!found)
 
-    filterChoice.addEventListener("click", (e) => {
-      // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
-      listIngredientTag.push(e.target.innerHTML);
-      displayTag(e, "component");
-      const filterOption = e.target;
-      filterOption.remove();
+    if (
+      !listIngredientTag.find(
+        (currentIngredientTag) => currentIngredientTag === componentOption
+      )
+    ) {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = componentOption;
+      componentFilterSection.appendChild(filterChoice);
 
-      // TODO : Lancer le sortAll
-      sortAll(allRecipes);
-    });
+      filterChoice.addEventListener("click", (e) => {
+        // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
+        listIngredientTag.push(e.target.innerHTML);
+        displayTag(e, "component");
+        const filterOption = e.target;
+        filterOption.remove();
+
+        // TODO : Lancer le sortAll
+        sortAll(allRecipes);
+      });
+    }
   });
 }
 
@@ -287,26 +302,30 @@ function componentFilterSearch(e) {
   updateComponentFilter(componentOptions);
 }
 
+
+
 function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector(".tools_filter");
 
   toolFilterSection.innerHTML = "";
 
   toolOptions.forEach((toolOption) => {
-    const filterChoice = document.createElement("span");
-    filterChoice.innerHTML = toolOption;
-    toolFilterSection.appendChild(filterChoice);
+    if (!listToolTag.find((currentToolTag) => currentToolTag === toolOption)) {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = toolOption;
+      toolFilterSection.appendChild(filterChoice);
 
-    filterChoice.addEventListener("click", (e) => {
-      // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
-      listToolTag.push(e.target.innerHTML);
-      displayTag(e, "tool");
-      const filterOption = e.target;
-      filterOption.remove();
+      filterChoice.addEventListener("click", (e) => {
+        // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
+        listToolTag.push(e.target.innerHTML);
+        displayTag(e, "tool");
+        const filterOption = e.target;
+        filterOption.remove();
 
-      // TODO : Lancer le sortAll
-      sortAll(allRecipes);
-    });
+        // TODO : Lancer le sortAll
+        sortAll(allRecipes);
+      });
+    }
   });
 }
 
@@ -325,19 +344,23 @@ function updateSetFilter(setOptions) {
   setFilterSection.innerHTML = "";
 
   setOptions.forEach((setOption) => {
-    const filterChoice = document.createElement("span");
-    filterChoice.innerHTML = setOption;
-    setFilterSection.appendChild(filterChoice);
+    if(!listSetTag.find(currentSetTag => currentSetTag === setOption)) {
+      const filterChoice = document.createElement("span");
+      filterChoice.innerHTML = setOption;
+      setFilterSection.appendChild(filterChoice);
+  
+      filterChoice.addEventListener("click", (e) => {
+        listSetTag.push(e.target.innerHTML);
+        displayTag(e, "set");
+        const filterOption = e.target;
+        filterOption.remove();
+  
 
-    filterChoice.addEventListener("click", (e) => {
-      listSetTag.push(e.target.innerHTML);
-      displayTag(e, "set");
-      const filterOption = e.target;
-      filterOption.remove();
 
       // TODO : Lancer le sortAll
       sortAll(allRecipes);
     });
+  }
   });
 }
 
@@ -448,17 +471,51 @@ function displayFilters(recipes) {
   updateSetFilter(sets);
 }
 
+// let a = {
+//    test: 1
+// };
+//
+// console.log(a.test); //1
+// let b = 0;
+// a.test; //inutile / pas d'effet
+// b = a.test;
+// b vaut 1
+
 /**
  * Supprimer les tags
  */
-function removeTag(e, name) {
+function removeTag(e, name, tagValue) {
   const tagSection = e.currentTarget;
   tagSection.remove();
 
   // todo: en fonction du name: retirer du bon tableau (voir listToolTag...)
   // appeler sortall pour refaire tout le tri
-  
 
+  // name = set | component | tool
+
+  if (name === "tool") {
+    // listTollTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
+    listToolTag = listToolTag.filter(
+      (currentToolTag) => currentToolTag !== tagValue
+    );
+  } else if (name === "component") {
+    listIngredientTag = listIngredientTag.filter(
+      (currentIngredientTag) => currentIngredientTag !== tagValue
+    );
+  } else if (name === "set") {
+    listSetTag = listSetTag.filter(
+      (currentSetTag) => currentSetTag !== tagValue
+    );
+  }
+
+  // let test = [];
+  // let tagToRemove = e.target.innerHTML;
+  // for (i = 0; i < listToolTag.length; i++) {
+  //   if (listToolTag[i] !== tagToRemove) {
+  //     test.push(listToolTag[i]);
+  //   }
+  // }
+  sortAll(allRecipes);
 
   // const tagRemoval = document.querySelector(".tagsection")
   // tagRemoval.style.display= "none";
@@ -468,6 +525,8 @@ function removeTag(e, name) {
  * Afficher les tags
  */
 function displayTag(e, name) {
+  const tagValue = e.target.innerHTML;
+
   const tag = document.querySelector(".tag");
   const tagSectionbis = document.createElement("div");
   const tagSection = document.createElement("div");
@@ -486,9 +545,9 @@ function displayTag(e, name) {
   tag.appendChild(tagSectionbis);
   tagSectionbis.appendChild(tagSection);
   tagSection.appendChild(tagText);
-  tagText.innerHTML = e.target.innerHTML;
+  tagText.innerHTML = tagValue;
   tagSection.appendChild(icon);
-  tagSection.addEventListener("click", (e) => removeTag(e, name));
+  tagSection.addEventListener("click", (e) => removeTag(e, name, tagValue));
 }
 
 /**
