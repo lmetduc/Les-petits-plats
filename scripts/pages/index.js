@@ -471,16 +471,6 @@ function displayFilters(recipes) {
   updateSetFilter(sets);
 }
 
-// let a = {
-//    test: 1
-// };
-//
-// console.log(a.test); //1
-// let b = 0;
-// a.test; //inutile / pas d'effet
-// b = a.test;
-// b vaut 1
-
 /**
  * Supprimer les tags
  */
