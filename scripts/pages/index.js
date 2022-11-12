@@ -41,10 +41,11 @@ async function getRecipes() {
 
   let recipeList = [];
 
-  recipes.forEach((recipe) => {
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
     const recipeModel = new RecipeFactory(recipe, "json");
     recipeList.push(recipeModel);
-  });
+  }
 
   return recipeList;
 }
@@ -100,21 +101,30 @@ function sortRecipesByIngredientsTags(recipes) {
     return recipes;
   }
 
-  return recipes.filter((recipe) => {
+  let filterRecipes = [];
+
+  for (let i = 0; i < recipes.length; i++) {
     let isValid = true;
-    listIngredientTag.forEach((tag) => {
+
+    for (let j = 0; j < listIngredientTag.length; j++) {
       let currentIngredientFound = false;
-      recipe.ingredients.forEach((ingredient) => {
-        if (ingredient.ingredient === tag) {
+      const tag = listIngredientTag[j];
+      for (let k = 0; k < recipes[i].ingredients.length; k++) {
+        if (recipes[i].ingredients[k].ingredient === tag) {
           currentIngredientFound = true;
         }
-      });
+      }
       if (!currentIngredientFound) {
         isValid = false;
       }
-    });
-    return isValid;
-  });
+    }
+
+    if (isValid) {
+      filterRecipes.push(recipes[i]);
+    }
+  }
+
+  return filterRecipes;
 
   // let results = [];
 
@@ -134,21 +144,31 @@ function sortRecipesBySetTags(recipes) {
     return recipes;
   }
 
-  return recipes.filter((recipe) => {
-    let isValid = true;
-    listSetTag.forEach((tag) => {
-      let currentSetFound = false;
+  let filterRecipes = [];
 
-      if (recipe.ustensils === tag) {
-        currentSetFound = true;
+  for (let i = 0; i < recipes.length; i++) {
+    let isValid = true;
+
+    for (let j = 0; j < listSetTag.length; j++) {
+      let currentSetFound = false;
+      const tag = listSetTag[j];
+
+      for (let k = 0; k < recipes[i].ustensils.length; k++) {
+        if (recipes[i].ustensils[k] === tag) {
+          currentSetFound = true;
+        }
       }
       if (!currentSetFound) {
         isValid = false;
       }
-    });
-    return isValid;
-  });
+    }
+    if (isValid) {
+      filterRecipes.push(recipes[i]);
+    }
+  }
+  return filterRecipes;
 
+  //   return filterRecipes;
   // TODO
   // TODO : 1) Récupérer les tags qui sont dans filters.SET_TAGS_LIST
   // TODO : 2) Si COMPONENTS_TAGS_LIST est vide on return recipes
@@ -165,21 +185,27 @@ function sortRecipesByToolsTags(recipes) {
   if (listToolTag.length === 0) {
     return recipes;
   }
+  let filterRecipes = [];
 
-  return recipes.filter((recipe) => {
+  for (let i = 0; i < recipes.length; i++) {
     let isValid = true;
-    listToolTag.forEach((tag) => {
+    for (let j = 0; j < listToolTag.length; j++) {
       let currentToolFound = false;
-      if (recipe.appliance === tag) {
+      const tag = listToolTag[j];
+
+      if (recipes[i].appliance === tag) {
         currentToolFound = true;
       }
 
       if (!currentToolFound) {
         isValid = false;
       }
-    });
-    return isValid;
-  });
+    }
+    if (isValid) {
+      filterRecipes.push(recipes[i]);
+    }
+  }
+  return filterRecipes;
 
   // TODO
   // TODO : 1) Récupérer les tags qui sont dans filters.COMPONENTS_TAGS_LIST
@@ -242,8 +268,8 @@ function removeDisplayRecipes() {
   recipesSection.innerHTML = "";
 }
 
-// permet de déclencher au clic differentes fonctions telles 
-// que l'ouverture du filtre, sa fermeture et celle des autres 
+// permet de déclencher au clic differentes fonctions telles
+// que l'ouverture du filtre, sa fermeture et celle des autres
 // lorsque l'un d'eux est deja selectionné
 
 componentsFilterButton.addEventListener("click", function () {
@@ -493,7 +519,6 @@ function removeTag(e, name, tagValue) {
   }
 
   sortAll(allRecipes);
-
 }
 
 /**
