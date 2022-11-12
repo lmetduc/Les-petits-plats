@@ -26,10 +26,17 @@ let dataListValues = { components: [], sets: [], tools: [] };
  * Récupération des données des recettes de recipes.json
  */
 
+//la fonction est asynchrone car elle doit lire le fichier json et cela peut prendre du temps donc le navigateur peut passer à la suite
+// await = promesse de repondre mais on sait pas quand et await permet de dire attends, pas de await sans async
+
 async function getRecipes() {
-  let res = await fetch("data/recipes.json").then((response) =>
-    response.json()
-  );
+  let response = await fetch("data/recipes.json");
+  let res = await response.json();
+
+  // let res = await fetch("data/recipes.json").then((response) =>
+  //   response.json()
+  // );
+
   let recipes = res.recipes;
 
   let recipeList = [];
@@ -55,6 +62,7 @@ function sortRecipesByKeywords(recipes) {
   }
 
   for (let i = 0; i < recipes.length; i++) {
+    //sucre syntaxique, destructuration
     const { name, ingredients, description } = recipes[i];
 
     const includesInName = name.toLowerCase().includes(query);
@@ -97,7 +105,7 @@ function sortRecipesByIngredientsTags(recipes) {
     listIngredientTag.forEach((tag) => {
       let currentIngredientFound = false;
       recipe.ingredients.forEach((ingredient) => {
-        if (ingredient.ingredient.includes(tag)) {
+        if (ingredient.ingredient === tag) {
           currentIngredientFound = true;
         }
       });
@@ -131,7 +139,7 @@ function sortRecipesBySetTags(recipes) {
     listSetTag.forEach((tag) => {
       let currentSetFound = false;
 
-      if (recipe.ustensils.includes(tag)) {
+      if (recipe.ustensils === tag) {
         currentSetFound = true;
       }
       if (!currentSetFound) {
@@ -162,7 +170,7 @@ function sortRecipesByToolsTags(recipes) {
     let isValid = true;
     listToolTag.forEach((tag) => {
       let currentToolFound = false;
-      if (recipe.appliance.includes(tag)) {
+      if (recipe.appliance === tag) {
         currentToolFound = true;
       }
 
@@ -222,11 +230,9 @@ function dislpayRecipes(recipesToDisplay) {
 
 /**
  *
- * TODO: check spec for keyup
  */
-searchBar.addEventListener("keyup", async (e) => {
-  let recipes = await getRecipes();
-  sortAll(recipes);
+searchBar.addEventListener("keyup", () => {
+  sortAll(allRecipes);
 });
 
 /**
@@ -236,7 +242,9 @@ function removeDisplayRecipes() {
   recipesSection.innerHTML = "";
 }
 
-// permet de déclencher au clic differentes fonctions telles que l'ouverture du filtre, sa fermeture et celle des autres lorsque l'un d'eux est deja selectionné
+// permet de déclencher au clic differentes fonctions telles 
+// que l'ouverture du filtre, sa fermeture et celle des autres 
+// lorsque l'un d'eux est deja selectionné
 
 componentsFilterButton.addEventListener("click", function () {
   triggerFilterOptions(componentsFilterButton);
@@ -254,22 +262,13 @@ setsFilterButton.addEventListener("click", function () {
   closeFilterOptions(componentsFilterButton);
 });
 
-// permet de mettre à jour les données du filtre appareil
+// permet de mettre à jour les données du filtre ingrêdient
 function updateComponentFilter(componentOptions) {
   const componentFilterSection = document.querySelector(".components_filter");
 
   componentFilterSection.innerHTML = "";
 
   componentOptions.forEach((componentOption) => {
-    // let found = false;
-    // for (i = 0; i < listIngredientTag.length; i++) {
-    //   if (listIngredientTag[i] === componentOption) {
-    //      found = true;
-    //   }
-    // }
-    //
-    // if (!found)
-
     if (
       !listIngredientTag.find(
         (currentIngredientTag) => currentIngredientTag === componentOption
@@ -302,8 +301,6 @@ function componentFilterSearch(e) {
   updateComponentFilter(componentOptions);
 }
 
-
-
 function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector(".tools_filter");
 
@@ -332,7 +329,7 @@ function updateToolFilter(toolOptions) {
 //permet de recuperer la valeur de la recherche et de la comparer
 function toolFilterSearch(e) {
   const value = e.target.value;
-  const toolOptions = tools.filter((tool) =>
+  const toolOptions = dataListValues.tools.filter((tool) =>
     tool.toLowerCase().includes(value.toLowerCase())
   );
   updateToolFilter(toolOptions);
@@ -344,29 +341,27 @@ function updateSetFilter(setOptions) {
   setFilterSection.innerHTML = "";
 
   setOptions.forEach((setOption) => {
-    if(!listSetTag.find(currentSetTag => currentSetTag === setOption)) {
+    if (!listSetTag.find((currentSetTag) => currentSetTag === setOption)) {
       const filterChoice = document.createElement("span");
       filterChoice.innerHTML = setOption;
       setFilterSection.appendChild(filterChoice);
-  
+
       filterChoice.addEventListener("click", (e) => {
         listSetTag.push(e.target.innerHTML);
         displayTag(e, "set");
         const filterOption = e.target;
         filterOption.remove();
-  
 
-
-      // TODO : Lancer le sortAll
-      sortAll(allRecipes);
-    });
-  }
+        // TODO : Lancer le sortAll
+        sortAll(allRecipes);
+      });
+    }
   });
 }
 
 function setFilterSearch(e) {
   const value = e.target.value;
-  const setOptions = sets.filter((set) =>
+  const setOptions = dataListValues.sets.filter((set) =>
     set.toLowerCase().includes(value.toLowerCase())
   );
   updateSetFilter(setOptions);
@@ -410,12 +405,12 @@ componentsFilterInput.addEventListener("keyup", function (e) {
   componentFilterSearch(e);
 });
 
-toolsFilterInput.addEventListener("keyup", function () {
-  toolFilterSearch(toolsFilterInput);
+toolsFilterInput.addEventListener("keyup", function (e) {
+  toolFilterSearch(e);
 });
 
-setsFilterInput.addEventListener("keyup", function () {
-  setFilterSearch(setsFilterInput);
+setsFilterInput.addEventListener("keyup", function (e) {
+  setFilterSearch(e);
 });
 
 /**
@@ -478,13 +473,12 @@ function removeTag(e, name, tagValue) {
   const tagSection = e.currentTarget;
   tagSection.remove();
 
-  // todo: en fonction du name: retirer du bon tableau (voir listToolTag...)
   // appeler sortall pour refaire tout le tri
 
   // name = set | component | tool
 
   if (name === "tool") {
-    // listTollTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
+    // listToolTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
     listToolTag = listToolTag.filter(
       (currentToolTag) => currentToolTag !== tagValue
     );
@@ -498,17 +492,8 @@ function removeTag(e, name, tagValue) {
     );
   }
 
-  // let test = [];
-  // let tagToRemove = e.target.innerHTML;
-  // for (i = 0; i < listToolTag.length; i++) {
-  //   if (listToolTag[i] !== tagToRemove) {
-  //     test.push(listToolTag[i]);
-  //   }
-  // }
   sortAll(allRecipes);
 
-  // const tagRemoval = document.querySelector(".tagsection")
-  // tagRemoval.style.display= "none";
 }
 
 /**

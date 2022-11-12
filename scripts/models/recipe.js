@@ -1,5 +1,7 @@
 import { Ingredient } from "./ingredient.js";
 
+//class comme une base de données
+
 export class Recipe {
   constructor(data) {
     this.id = data.id;
@@ -7,6 +9,7 @@ export class Recipe {
     this.servings = data.servings;
     let ingredients = [];
     data.ingredients.forEach((ingredientInfo) => {
+      // une classe avec new = syntaxe
       const ingredient = new Ingredient(ingredientInfo);
       ingredients.push(ingredient);
     });
@@ -17,6 +20,11 @@ export class Recipe {
     this.appliance = data.appliance;
     this.ustensils = data.ustensils;
   }
+
+  // get permet de récupérer les données
+  // set permet de modifier les données
+  // utile ? => non, 
+  // pourquoi utiliser des getter et setter ? => permet de preformater les données pour les utiliser aprés dans le reste du code
 
   get id() {
     return this._id;
