@@ -139,9 +139,12 @@ function sortRecipesBySetTags(recipes) {
     listSetTag.forEach((tag) => {
       let currentSetFound = false;
 
-      if (recipe.ustensils === tag) {
-        currentSetFound = true;
-      }
+      recipe.ustensils.forEach((set) => {
+        if(set === tag) {
+          currentSetFound = true;
+        }
+      });
+
       if (!currentSetFound) {
         isValid = false;
       }
