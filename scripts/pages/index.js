@@ -249,9 +249,9 @@ function updateDisplayRecipes(recipesToDisplay) {
  */
 
 function dislpayRecipes(recipesToDisplay) {
-  recipesToDisplay.forEach((recipe) => {
-    recipesSection.append(new RecipeCard(recipe).getUserCardDOM());
-  });
+  for (let i = 0; i < recipesToDisplay.length; i++) {
+    recipesSection.append(new RecipeCard(recipesToDisplay[i]).getUserCardDOM());
+  }
 }
 
 /**
@@ -294,14 +294,16 @@ function updateComponentFilter(componentOptions) {
 
   componentFilterSection.innerHTML = "";
 
-  componentOptions.forEach((componentOption) => {
-    if (
-      !listIngredientTag.find(
-        (currentIngredientTag) => currentIngredientTag === componentOption
-      )
-    ) {
+  for (let i = 0; i < componentOptions.length; i++) {
+    let isSelected = false;
+    for (let j = 0; j < listIngredientTag.length; j++) {
+      if (listIngredientTag[j] === componentOptions[i]) {
+        isSelected = true;
+      }
+    }
+    if (!isSelected) {
       const filterChoice = document.createElement("span");
-      filterChoice.innerHTML = componentOption;
+      filterChoice.innerHTML = componentOptions[i];
       componentFilterSection.appendChild(filterChoice);
 
       filterChoice.addEventListener("click", (e) => {
@@ -315,15 +317,24 @@ function updateComponentFilter(componentOptions) {
         sortAll(allRecipes);
       });
     }
-  });
+  }
 }
 
 //permet de recuperer la valeur de la recherche et de la comparer
 function componentFilterSearch(e) {
   const value = e.target.value;
-  const componentOptions = dataListValues.components.filter((component) =>
-    component.toLowerCase().includes(value.toLowerCase())
-  );
+  let componentOptions = [];
+  for (let i = 0; i < dataListValues.components.length; i++) {
+    if (
+      dataListValues.components[i].toLowerCase().includes(value.toLowerCase())
+    ) {
+      componentOptions.push(dataListValues.components[i]);
+    }
+  }
+
+  // const componentOptions = dataListValues.components.filter((component) =>
+  //   component.toLowerCase().includes(value.toLowerCase())
+  //);
   updateComponentFilter(componentOptions);
 }
 
