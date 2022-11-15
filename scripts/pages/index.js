@@ -223,7 +223,6 @@ function sortAll(allRecipes) {
   recipes = sortRecipesByToolsTags(recipes);
   recipes = sortRecipesBySetTags(recipes);
 
-  dataListValues = dataList(recipes);
 
   displayFilters(recipes);
   updateDisplayRecipes(recipes);
