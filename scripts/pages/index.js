@@ -53,7 +53,6 @@ async function getRecipes() {
  *
  */
 function sortRecipesByKeywords(recipes) {
-  const results = [];
 
   const query = searchBar.value.toLowerCase();
 
@@ -61,34 +60,16 @@ function sortRecipesByKeywords(recipes) {
     return recipes;
   }
 
-  for (let i = 0; i < recipes.length; i++) {
-    //sucre syntaxique, destructuration
-    const { name, ingredients, description } = recipes[i];
-
+  return recipes.filter((recipe) => {
+  const { name, ingredients, description } = recipe;
     const includesInName = name.toLowerCase().includes(query);
-    if (includesInName) {
-      results.push(recipes[i]);
-      continue;
-    }
-
     const includesInDescription = description.toLowerCase().includes(query);
-    if (includesInDescription) {
-      results.push(recipes[i]);
-      continue;
-    }
+    const includesInIngredients = ingredients.find((ingredient) => 
+      ingredient.ingredient.toLowerCase().includes(query)
+    ) !==undefined;
 
-    let includesInIngredients = false;
-    for (let y = 0; y < ingredients.length; y++) {
-      if (ingredients[y].ingredient.toLowerCase().includes(query)) {
-        includesInIngredients = true;
-      }
-    }
-    if (includesInIngredients) {
-      results.push(recipes[i]);
-    }
-  }
-
-  return results;
+    return includesInName || includesInDescription || includesInIngredients;
+  })
 }
 
 /**
