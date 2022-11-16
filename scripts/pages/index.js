@@ -57,7 +57,7 @@ function sortRecipesByKeywords(recipes) {
   }
 
   for (let i = 0; i < recipes.length; i++) {
-    //sucre syntaxique, destructuration
+  
     const { name, ingredients, description } = recipes[i];
 
     const includesInName = name.toLowerCase().includes(query);
