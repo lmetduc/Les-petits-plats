@@ -26,16 +26,10 @@ let dataListValues = { components: [], sets: [], tools: [] };
  * Récupération des données des recettes de recipes.json
  */
 
-//la fonction est asynchrone car elle doit lire le fichier json et cela peut prendre du temps donc le navigateur peut passer à la suite
-// await = promesse de repondre mais on sait pas quand et await permet de dire attends, pas de await sans async
 
 async function getRecipes() {
   let response = await fetch("data/recipes.json");
   let res = await response.json();
-
-  // let res = await fetch("data/recipes.json").then((response) =>
-  //   response.json()
-  // );
 
   let recipes = res.recipes;
 
@@ -267,10 +261,6 @@ function removeDisplayRecipes() {
   recipesSection.innerHTML = "";
 }
 
-// permet de déclencher au clic differentes fonctions telles
-// que l'ouverture du filtre, sa fermeture et celle des autres
-// lorsque l'un d'eux est deja selectionné
-
 componentsFilterButton.addEventListener("click", function () {
   triggerFilterOptions(componentsFilterButton);
   closeFilterOptions(toolsFilterButton);
@@ -331,46 +321,8 @@ function componentFilterSearch(e) {
     }
   }
 
-  // const componentOptions = dataListValues.components.filter((component) =>
-  //   component.toLowerCase().includes(value.toLowerCase())
-  //);
   updateComponentFilter(componentOptions);
 }
-
-// function updateComponentFilter(componentOptions) {
-//   const componentFilterSection = document.querySelector(".components_filter");
-
-//   componentFilterSection.innerHTML = "";
-
-//   componentOptions.forEach((componentOption) => {
-//     if (
-//       !listIngredientTag.find(
-//         (currentIngredientTag) => currentIngredientTag === componentOption
-//       )
-//     ) {
-//       const filterChoice = document.createElement("span");
-//       filterChoice.innerHTML = componentOption;
-//       componentFilterSection.appendChild(filterChoice);
-//       filterChoice.addEventListener("click", (e) => {
-//         // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
-//         listIngredientTag.push(e.target.innerHTML);
-//         displayTag(e, "component");
-//         const filterOption = e.target;
-//         filterOption.remove();
-//         // TODO : Lancer le sortAll
-//         sortAll(allRecipes);
-//       });
-//     }
-//   });
-// }
-// //permet de recuperer la valeur de la recherche et de la comparer
-// function componentFilterSearch(e) {
-//   const value = e.target.value;
-//   const componentOptions = dataListValues.components.filter((component) =>
-//     component.toLowerCase().includes(value.toLowerCase())
-//   );
-//   updateComponentFilter(componentOptions);
-// }
 
 function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector(".tools_filter");
@@ -415,23 +367,6 @@ function toolFilterSearch(e) {
   updateToolFilter(toolsOptions);
 }
 
-// function componentFilterSearch(e) {
-//   const value = e.target.value;
-//   let componentOptions = [];
-//   for (let i = 0; i < dataListValues.components.length; i++) {
-//     if (
-//       dataListValues.components[i].toLowerCase().includes(value.toLowerCase())
-//     ) {
-//       componentOptions.push(dataListValues.components[i]);
-//     }
-//   }
-
-//   // const componentOptions = dataListValues.components.filter((component) =>
-//   //   component.toLowerCase().includes(value.toLowerCase())
-//   //);
-//   updateComponentFilter(componentOptions);
-// }
-
 function updateSetFilter(setOptions) {
   const setFilterSection = document.querySelector(".sets_filter");
 
@@ -471,9 +406,7 @@ function setFilterSearch(e) {
     }
   }
 
-  // const setOptions = dataListValues.sets.filter((set) =>
-  //   set.toLowerCase().includes(value.toLowerCase())
-  // );
+
   updateSetFilter(setOptions);
 }
 
@@ -563,19 +496,6 @@ function dataList(recipes) {
     toolOption.push(recipes[i].appliance);
   }
 
-  // recipes.forEach((recipe) => {
-  //   let ingredientNameList = [];
-  //   // check for map or filter
-  //   recipe.ingredients.forEach((ingredient) => {
-  //     ingredientNameList.push(ingredient.ingredient);
-  //   });
-  //   componentsOption = componentsOption.concat(ingredientNameList);
-
-  //   setOption = setOption.concat(recipe.ustensils);
-
-  //   toolOption.push(recipe.appliance);
-  // });
-
   // retourne les trois tableaux
   return {
     components: unique(componentsOption),
@@ -605,8 +525,6 @@ function removeTag(e, name, tagValue) {
 
   // appeler sortall pour refaire tout le tri
 
-  // name = set | component | tool
-
   if (name === "tool") {
     // listToolTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
     let listTag = [];
@@ -625,9 +543,6 @@ function removeTag(e, name, tagValue) {
     }
     listIngredientTag = listTag;
 
-    // listIngredientTag = listIngredientTag.filter(
-    //   (currentIngredientTag) => currentIngredientTag !== tagValue
-    // );
   } else if (name === "set") {
     let listTag = [];
     for (let i = 0; i < listSetTag.length; i++) {
@@ -636,9 +551,7 @@ function removeTag(e, name, tagValue) {
       }
     }
     listSetTag = listTag;
-    // listSetTag = listSetTag.filter(
-    //   (currentSetTag) => currentSetTag !== tagValue
-    // );
+
   }
 
   sortAll(allRecipes);
