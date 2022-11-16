@@ -26,16 +26,9 @@ let dataListValues = { components: [], sets: [], tools: [] };
  * Récupération des données des recettes de recipes.json
  */
 
-//la fonction est asynchrone car elle doit lire le fichier json et cela peut prendre du temps donc le navigateur peut passer à la suite
-// await = promesse de repondre mais on sait pas quand et await permet de dire attends, pas de await sans async
-
 async function getRecipes() {
   let response = await fetch("data/recipes.json");
   let res = await response.json();
-
-  // let res = await fetch("data/recipes.json").then((response) =>
-  //   response.json()
-  // );
 
   let recipes = res.recipes;
 
@@ -50,7 +43,7 @@ async function getRecipes() {
 }
 
 /**
- *
+ * Tri par mot clé, barre de recherche
  */
 function sortRecipesByKeywords(recipes) {
 
@@ -66,7 +59,7 @@ function sortRecipesByKeywords(recipes) {
     const includesInDescription = description.toLowerCase().includes(query);
     const includesInIngredients = ingredients.find((ingredient) => 
       ingredient.ingredient.toLowerCase().includes(query)
-    ) !==undefined;
+    );
 
     return includesInName || includesInDescription || includesInIngredients;
   })
@@ -436,8 +429,6 @@ function dataList(recipes) {
   };
 }
 
-// let dataListValues = {};
-
 function displayFilters(recipes) {
   dataListValues = dataList(recipes);
 
@@ -456,8 +447,6 @@ function removeTag(e, name, tagValue) {
   tagSection.remove();
 
   // appeler sortall pour refaire tout le tri
-
-  // name = set | component | tool
 
   if (name === "tool") {
     // listToolTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
