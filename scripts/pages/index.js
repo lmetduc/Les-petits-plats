@@ -20,7 +20,7 @@ let allRecipes = [];
 let listIngredientTag = [];
 let listToolTag = [];
 let listSetTag = [];
-let dataListValues = { components: [], sets: [], tools: [] };
+let dataListValues = {};
 
 /**
  * Récupération des données des recettes de recipes.json
@@ -509,7 +509,9 @@ function dataList(recipes) {
 function displayFilters(recipes) {
   dataListValues = dataList(recipes);
 
-  let { components, tools, sets } = dataListValues;
+  let components = dataListValues.components;
+  let tools = dataListValues.tools;
+  let sets = dataListValues.sets;
 
   updateComponentFilter(components);
   updateToolFilter(tools);
