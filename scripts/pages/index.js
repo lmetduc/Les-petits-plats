@@ -282,13 +282,19 @@ function updateComponentFilter(componentOptions) {
   const componentFilterSection = document.querySelector(".components_filter");
 
   componentFilterSection.innerHTML = "";
-
+ if (componentOptions.length === 0) {
+  const filterEmptyMessage = document.createElement("span");
+  filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+  filterEmptyMessage.classList.add("filter_unit");
+  componentFilterSection.appendChild(filterEmptyMessage);
+ };
   for (let i = 0; i < componentOptions.length; i++) {
     let isSelected = false;
     for (let j = 0; j < listIngredientTag.length; j++) {
       if (listIngredientTag[j] === componentOptions[i]) {
         isSelected = true;
       }
+
     }
     if (!isSelected) {
       const filterChoice = document.createElement("span");
@@ -305,7 +311,7 @@ function updateComponentFilter(componentOptions) {
         // TODO : Lancer le sortAll
         sortAll(allRecipes);
       });
-    }
+    }       
   }
 }
 
@@ -328,6 +334,12 @@ function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector(".tools_filter");
 
   toolFilterSection.innerHTML = "";
+  if (toolOptions.length === 0) {
+    const filterEmptyMessage = document.createElement("span");
+    filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+    filterEmptyMessage.classList.add("filter_unit");
+    toolFilterSection.appendChild(filterEmptyMessage);
+  }
 
   for (let i = 0; i < toolOptions.length; i++) {
     let isSelected = false;
@@ -347,7 +359,6 @@ function updateToolFilter(toolOptions) {
         displayTag(e, "tool");
         const filterOption = e.target;
         filterOption.remove();
-
         // TODO : Lancer le sortAll
         sortAll(allRecipes);
       });
@@ -371,6 +382,12 @@ function updateSetFilter(setOptions) {
   const setFilterSection = document.querySelector(".sets_filter");
 
   setFilterSection.innerHTML = "";
+  if (setOptions.length === 0) {
+    const filterEmptyMessage = document.createElement("span");
+    filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+    filterEmptyMessage.classList.add("filter_unit");
+    setFilterSection.appendChild(filterEmptyMessage);
+  }
 
   for (let i = 0; i < setOptions.length; i++) {
     let isSelected = false;

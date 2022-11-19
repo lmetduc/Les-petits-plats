@@ -91,7 +91,6 @@ body {
   justify-content: space-around;
   font-size: 22px;
   font-weight: bold;
-  background: #4980EE;
   color: white;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -117,6 +116,13 @@ body {
 
 .filter-search {
   display: none;
+  padding: 0 0 0 10px;
+}
+
+.filter_unit {
+  width:520px;
+  wrap:nowrap;
+
 }
 
 .filter-search input {
@@ -142,7 +148,17 @@ body {
 
 .filter.opened .filter_select_choice {
   display: grid;
+  border-radius: 0 0 10px 10px;
 }
+
+.filter.opened {
+  border-radius: 10px 10px 0 0;
+}
+
+input:focus { 
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent; }
 
 .filter_select_choice span {
   display: block;
