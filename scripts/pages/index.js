@@ -20,7 +20,7 @@ let allRecipes = [];
 let listIngredientTag = [];
 let listToolTag = [];
 let listSetTag = [];
-let dataListValues = { components: [], sets: [], tools: [] };
+let dataListValues = {};
 
 /**
  * Récupération des données des recettes de recipes.json
@@ -46,7 +46,6 @@ async function getRecipes() {
  * Tri par mot clé, barre de recherche
  */
 function sortRecipesByKeywords(recipes) {
-
   const query = searchBar.value.toLowerCase();
 
   if (query.length < 3) {
@@ -54,15 +53,15 @@ function sortRecipesByKeywords(recipes) {
   }
 
   return recipes.filter((recipe) => {
-  const { name, ingredients, description } = recipe;
+    const { name, ingredients, description } = recipe;
     const includesInName = name.toLowerCase().includes(query);
     const includesInDescription = description.toLowerCase().includes(query);
-    const includesInIngredients = ingredients.find((ingredient) => 
+    const includesInIngredients = ingredients.find((ingredient) =>
       ingredient.ingredient.toLowerCase().includes(query)
     );
 
     return includesInName || includesInDescription || includesInIngredients;
-  })
+  });
 }
 
 /**
@@ -114,7 +113,7 @@ function sortRecipesBySetTags(recipes) {
       let currentSetFound = false;
 
       recipe.ustensils.forEach((set) => {
-        if(set === tag) {
+        if (set === tag) {
           currentSetFound = true;
         }
       });
@@ -217,8 +216,8 @@ function removeDisplayRecipes() {
   recipesSection.innerHTML = "";
 }
 
-// permet de déclencher au clic differentes fonctions telles 
-// que l'ouverture du filtre, sa fermeture et celle des autres 
+// permet de déclencher au clic differentes fonctions telles
+// que l'ouverture du filtre, sa fermeture et celle des autres
 // lorsque l'un d'eux est deja selectionné
 
 componentsFilterButton.addEventListener("click", function () {
@@ -243,6 +242,12 @@ function updateComponentFilter(componentOptions) {
 
   componentFilterSection.innerHTML = "";
 
+  if (componentOptions.length === 0) {
+    const filterEmptyMessage = document.createElement("span");
+    filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+    filterEmptyMessage.classList.add("filter_unit");
+    componentFilterSection.appendChild(filterEmptyMessage);
+  }
   componentOptions.forEach((componentOption) => {
     if (
       !listIngredientTag.find(
@@ -281,6 +286,12 @@ function updateToolFilter(toolOptions) {
 
   toolFilterSection.innerHTML = "";
 
+  if (toolOptions.length === 0) {
+    const filterEmptyMessage = document.createElement("span");
+    filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+    filterEmptyMessage.classList.add("filter_unit");
+    toolFilterSection.appendChild(filterEmptyMessage);
+  }
   toolOptions.forEach((toolOption) => {
     if (!listToolTag.find((currentToolTag) => currentToolTag === toolOption)) {
       const filterChoice = document.createElement("span");
@@ -315,6 +326,12 @@ function updateSetFilter(setOptions) {
 
   setFilterSection.innerHTML = "";
 
+  if (setOptions.length === 0) {
+    const filterEmptyMessage = document.createElement("span");
+    filterEmptyMessage.innerHTML = "Aucune correspondance n'a été trouvée";
+    filterEmptyMessage.classList.add("filter_unit");
+    setFilterSection.appendChild(filterEmptyMessage);
+  }
   setOptions.forEach((setOption) => {
     if (!listSetTag.find((currentSetTag) => currentSetTag === setOption)) {
       const filterChoice = document.createElement("span");
@@ -432,7 +449,9 @@ function dataList(recipes) {
 function displayFilters(recipes) {
   dataListValues = dataList(recipes);
 
-  let { components, tools, sets } = dataListValues;
+  let components = dataListValues.components;
+  let tools = dataListValues.tools;
+  let sets = dataListValues.sets;
 
   updateComponentFilter(components);
   updateToolFilter(tools);
@@ -464,7 +483,6 @@ function removeTag(e, name, tagValue) {
   }
 
   sortAll(allRecipes);
-
 }
 
 /**
