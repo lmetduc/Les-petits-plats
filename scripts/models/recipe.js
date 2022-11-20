@@ -1,15 +1,13 @@
-import { Ingredient } from "./ingredient.js";
+// eslint-disable-next-line import/extensions
+import { Ingredient } from './ingredient.js';
 
-
-
-export class Recipe {
+class Recipe {
   constructor(data) {
     this.id = data.id;
     this.name = data.name;
     this.servings = data.servings;
-    let ingredients = [];
+    const ingredients = [];
     data.ingredients.forEach((ingredientInfo) => {
-
       const ingredient = new Ingredient(ingredientInfo);
       ingredients.push(ingredient);
     });
@@ -24,6 +22,7 @@ export class Recipe {
   get id() {
     return this._id;
   }
+
   set id(id) {
     this._id = id;
   }
@@ -31,6 +30,7 @@ export class Recipe {
   get name() {
     return this._name;
   }
+
   set name(name) {
     this._name = name;
   }
@@ -38,6 +38,7 @@ export class Recipe {
   get servings() {
     return this._servings;
   }
+
   set servings(servings) {
     this._servings = servings;
   }
@@ -45,8 +46,10 @@ export class Recipe {
   get ingredients() {
     return this._ingredients;
   }
+
   set ingredients(ingredients) {
     this._ingredients = ingredients;
   }
 }
 
+export default Recipe;
