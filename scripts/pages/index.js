@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 // eslint-disable-next-line import/extensions
 import { RecipeFactory } from '../factories/recipeFactory.js';
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/extensions, import/named
 import { RecipeCard } from '../templates/recipeCard.js';
 
 // permet de sélectionner l'emplacement des recettes et de la barre de recherche sur la page
@@ -27,8 +27,8 @@ let dataListValues = {};
 
 /**
  * Récupération des données des recettes de recipes.json
+ * @returns La liste de toutes les recettes
  */
-
 async function getRecipes() {
   const response = await fetch('data/recipes.json');
   const res = await response.json();
@@ -47,6 +47,8 @@ async function getRecipes() {
 
 /**
  * Tri par mot clé, barre de recherche
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le titre, la description ou les ingredients
  */
 function sortRecipesByKeywords(recipes) {
   const query = searchBar.value.toLowerCase();
@@ -66,9 +68,9 @@ function sortRecipesByKeywords(recipes) {
 }
 
 /**
- * Tri en fonction des filtres ingrédients
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou le(s) tag(s) ingredient sélectionné(s)
  */
-
 function sortRecipesByIngredientsTags(recipes) {
   if (listIngredientTag.length === 0) {
     return recipes;
@@ -93,6 +95,11 @@ function sortRecipesByIngredientsTags(recipes) {
 
 /**
  * Tri en fonction des filtres appareils
+ */
+
+/**
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou les tag(s) appareil(s) sélectionné(s)
  */
 
 function sortRecipesBySetTags(recipes) {
@@ -122,6 +129,10 @@ function sortRecipesBySetTags(recipes) {
 /**
  * Tri en fonction des filtres ustensiles
  */
+/**
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou les tag(s) ustensile sélectionné(s)
+ */
 
 function sortRecipesByToolsTags(recipes) {
   if (listToolTag.length === 0) {
@@ -145,7 +156,8 @@ function sortRecipesByToolsTags(recipes) {
 }
 
 /**
- * Afficher la liste des recettes
+ * Afficher la liste des recettes grâce à RecipeCard dans recipesSection
+ * @param {*} recipesToDisplay
  */
 
 function dislpayRecipes(recipesToDisplay) {
@@ -156,6 +168,10 @@ function dislpayRecipes(recipesToDisplay) {
 
 /**
  * Trie toutes les recettes
+ */
+/**
+ * @param {*} allRecipesToFilter
+ * @returns Toutes les recettes triées en fonction des quatre tris, affiche les filtres et mets à jour les recettes
  */
 
 function sortAll(allRecipesToFilter) {
@@ -174,12 +190,14 @@ function sortAll(allRecipesToFilter) {
 
 /**
  * Supprimer les tags
+ * @param {*} e
+ * @param {*} name
+ * @param {*} tagValue
  */
+
 function removeTag(e, name, tagValue) {
   const tagSection = e.currentTarget;
   tagSection.remove();
-
-  // appeler sortall pour refaire tout le tri
 
   if (name === 'tool') {
     // listToolTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
@@ -201,7 +219,10 @@ function removeTag(e, name, tagValue) {
 
 /**
  * Afficher les tags
+ * @param {} e
+ * @param {*} name
  */
+
 function displayTag(e, name) {
   const tagValue = e.target.innerHTML;
 
@@ -228,7 +249,11 @@ function displayTag(e, name) {
   tagSection.addEventListener('click', (event) => removeTag(event, name, tagValue));
 }
 
-// permet de mettre à jour les données du filtre ingrêdient
+/**
+ * Met à jour les données du filtre ingrédient
+ * @param {*} componentOptions
+ */
+
 function updateComponentFilter(componentOptions) {
   const componentFilterSection = document.querySelector('.components_filter');
 
@@ -251,25 +276,31 @@ function updateComponentFilter(componentOptions) {
       componentFilterSection.appendChild(filterChoice);
 
       filterChoice.addEventListener('click', (e) => {
-        // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
         listIngredientTag.push(e.target.innerHTML);
         displayTag(e, 'component');
         const filterOption = e.target;
         filterOption.remove();
 
-        // TODO : Lancer le sortAll
         sortAll(allRecipes);
       });
     }
   });
 }
 
-// permet de recuperer la valeur de la recherche et de la comparer
+/**
+ * Recherche les données du filtre ingrédient
+ * @param {*} e
+ */
 function componentFilterSearch(e) {
   const { value } = e.target;
   const componentOptions = dataListValues.components.filter((component) => component.toLowerCase().includes(value.toLowerCase()));
   updateComponentFilter(componentOptions);
 }
+
+/**
+ * Met à jour les données du filtre ustensile
+ * @param {*} toolOptions
+ */
 
 function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector('.tools_filter');
@@ -289,26 +320,31 @@ function updateToolFilter(toolOptions) {
       toolFilterSection.appendChild(filterChoice);
 
       filterChoice.addEventListener('click', (e) => {
-        // TODO : Sauvegarder les tags dans une list COMPONENTS_TAGS_LIST
         listToolTag.push(e.target.innerHTML);
         displayTag(e, 'tool');
         const filterOption = e.target;
         filterOption.remove();
 
-        // TODO : Lancer le sortAll
         sortAll(allRecipes);
       });
     }
   });
 }
 
-// permet de recuperer la valeur de la recherche et de la comparer
+/**
+ * Recherche les données du filtre ustensile
+ * @param {*} e
+ */
 function toolFilterSearch(e) {
   const { value } = e.target;
   const toolOptions = dataListValues.tools.filter((tool) => tool.toLowerCase().includes(value.toLowerCase()));
   updateToolFilter(toolOptions);
 }
 
+/**
+ * Met à jour les données du filtre appareil
+ * @param {*} setOptions
+ */
 function updateSetFilter(setOptions) {
   const setFilterSection = document.querySelector('.sets_filter');
 
@@ -332,20 +368,26 @@ function updateSetFilter(setOptions) {
         const filterOption = e.target;
         filterOption.remove();
 
-        // TODO : Lancer le sortAll
         sortAll(allRecipes);
       });
     }
   });
 }
 
+/**
+ * Recherche les données du filtre appareil
+ * @param {*} e
+ */
 function setFilterSearch(e) {
   const { value } = e.target;
   const setOptions = dataListValues.sets.filter((set) => set.toLowerCase().includes(value.toLowerCase()));
   updateSetFilter(setOptions);
 }
 
-// permet de fermer les filtres
+/**
+ * permet de fermer les filtres
+ * @param {*} item
+ */
 function closeFilterOptions(item) {
   item.classList.remove('opened');
   const filterLabel = item.querySelector('.filter-label');
@@ -354,7 +396,10 @@ function closeFilterOptions(item) {
   filterSearch.style.display = 'none';
 }
 
-// permet d'ouvrir les filtres
+/**
+ * permet d'ouvrir les filtres
+ * @param {*} item
+ */
 function openFilterOptions(item) {
   item.classList.add('opened');
 
@@ -367,7 +412,10 @@ function openFilterOptions(item) {
   filterInput.focus();
 }
 
-// permet d'ouvrir ou de fermer les filtres
+/**
+ * permet d'ouvrir ou de fermer les filtres
+ * @param {*} item
+ */
 function triggerFilterOptions(item) {
   if (item.classList.contains('opened')) {
     closeFilterOptions(item);
@@ -383,10 +431,9 @@ function removeDisplayRecipes() {
   recipesSection.innerHTML = '';
 }
 
-// permet de déclencher au clic differentes fonctions telles
-// que l'ouverture du filtre, sa fermeture et celle des autres
-// lorsque l'un d'eux est deja selectionné
-
+/**
+ * permet de déclencher au clic differentes fonctions telles que l'ouverture du filtre, sa fermeture et celle des autres lorsque l'un d'eux est deja selectionné
+ */
 componentsFilterButton.addEventListener('click', () => {
   triggerFilterOptions(componentsFilterButton);
   closeFilterOptions(toolsFilterButton);
@@ -404,9 +451,8 @@ setsFilterButton.addEventListener('click', () => {
 });
 
 /**
- * Gestion de la recherche des filtres
+ * Gestion de la recherche des filtres au keyup
  */
-
 componentsFilterInput.addEventListener('keyup', (e) => {
   componentFilterSearch(e);
 });
@@ -421,8 +467,9 @@ setsFilterInput.addEventListener('keyup', (e) => {
 
 /**
  * Affiche les filtres sans doublons et dans l'ordre alphabétique
+ * @param {*} filterList
+ * @returns La liste d'un filtre sans doublon et trié
  */
-
 function unique(filterList) {
   // permet de supprimer les doublons
   const results = filterList.filter((v, i, a) => a.indexOf(v) === i);
@@ -432,6 +479,8 @@ function unique(filterList) {
 
 /**
  * Récupération des données des filtres
+ * @param {*} recipes
+ * @returns La liste des ingredients && ustensile && appareil sans doublon
  */
 
 function dataList(recipes) {
@@ -462,8 +511,8 @@ function dataList(recipes) {
 
 /**
  * Mettre à jour la liste des recettes
+ * @param {*} recipesToDisplay
  */
-
 function updateDisplayRecipes(recipesToDisplay) {
   removeDisplayRecipes();
 
@@ -475,12 +524,16 @@ function updateDisplayRecipes(recipesToDisplay) {
 }
 
 /**
- *
+ * Recherche au keyup sur la searchBar
  */
 searchBar.addEventListener('keyup', () => {
   sortAll(allRecipes);
 });
 
+/**
+ * Mise à jour des filtres entre eux
+ * @param {*} recipes
+ */
 function displayFilters(recipes) {
   dataListValues = dataList(recipes);
 

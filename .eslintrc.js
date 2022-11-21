@@ -11,6 +11,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'no-continue': 0,
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
   },
 };

@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/extensions, import/named
 import { Ingredient } from './ingredient.js';
 
 class Recipe {
