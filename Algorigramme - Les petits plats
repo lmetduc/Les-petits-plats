@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-23T13:51:23.316Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="qjkUi-q7Lq3xtB5kwdGj" version="20.5.3" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2022-11-23T13:53:23.053Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="mM9xqoITkNJ2g6uU_Xwr" version="20.5.3" type="github" pages="5">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1419" dy="1970" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#F1FAEE" math="0" shadow="0">
       <root>
@@ -610,15 +610,15 @@
     </mxGraphModel>
   </diagram>
   <diagram id="3YNwvaXDVsfTYaprtsDA" name="Page-4">
-    <mxGraphModel dx="1773" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1773" dy="1703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="y9xJWjTuM5tiMW9M9GCh-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
           <mxGeometry x="266" y="80" width="106" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="y9xJWjTuM5tiMW9M9GCh-21" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Algorigramm&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="60" y="60" width="120" height="60" as="geometry" />
+        <mxCell id="y9xJWjTuM5tiMW9M9GCh-21" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;ALGORIGRAMME&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="-80" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="y9xJWjTuM5tiMW9M9GCh-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="y9xJWjTuM5tiMW9M9GCh-26" target="y9xJWjTuM5tiMW9M9GCh-33" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -892,6 +892,12 @@
         </mxCell>
         <mxCell id="4AU3z4SKqsSWVMgkQlxF-5" value="End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" vertex="1" parent="1">
           <mxGeometry x="-131.12" y="1164" width="106" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4AU3z4SKqsSWVMgkQlxF-7" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Filtres&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-344.26" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4AU3z4SKqsSWVMgkQlxF-8" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Recherche&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="396.87" y="40" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
