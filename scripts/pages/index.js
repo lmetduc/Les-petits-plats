@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 // eslint-disable-next-line import/extensions
-import { RecipeFactory } from '../factories/recipeFactory.js';
+import RecipeFactory from '../factories/recipeFactory.js';
 // eslint-disable-next-line import/extensions, import/named
 import { RecipeCard } from '../templates/recipeCard.js';
 
