@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions, import/named
-import { Ingredient } from './ingredient.js';
+import Ingredient from './ingredient.js';
 
 class Recipe {
   constructor(data) {

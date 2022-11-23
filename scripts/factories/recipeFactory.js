@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions, import/named
-import { Recipe } from '../models/recipe.js';
+import Recipe from '../models/recipe.js';
 
 class RecipeFactory {
   constructor(data, type) {

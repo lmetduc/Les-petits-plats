@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/extensions
 import RecipeFactory from '../factories/recipeFactory.js';
 // eslint-disable-next-line import/extensions, import/named
-import { RecipeCard } from '../templates/recipeCard.js';
+import RecipeCard from '../templates/recipeCard.js';
 
 // permet de sélectionner l'emplacement des recettes et de la barre de recherche sur la page
 
