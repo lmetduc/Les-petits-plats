@@ -1,10 +1,13 @@
-import { Recipe } from "../models/recipe.js";
-export class RecipeFactory {
+// eslint-disable-next-line import/extensions
+import Recipe from '../models/recipe.js';
+
+class RecipeFactory {
   constructor(data, type) {
-    if (type === "json") {
+    if (type === 'json') {
+      // eslint-disable-next-line no-constructor-return
       return new Recipe(data);
-    } else {
-      console.log("La factory recipe ne connait pas le type" + type);
     }
+    console.log(`La factory recipe ne connait pas le type${type}`);
   }
 }
+export default RecipeFactory;

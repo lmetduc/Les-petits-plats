@@ -1,7 +1,7 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable import/extensions */
-import { RecipeFactory } from '../factories/recipeFactory.js';
-import { RecipeCard } from '../templates/recipeCard.js';
+import RecipeFactory from '../factories/recipeFactory.js';
+import RecipeCard from '../templates/recipeCard.js';
 
 // permet de sélectionner l'emplacement des recettes et de la barre de recherche sur la page
 
