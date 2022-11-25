@@ -58,7 +58,9 @@ function sortRecipesByKeywords(recipes) {
   }
 
   return recipes.filter((recipe) => {
-    const { name, ingredients, description } = recipe;
+    const { name } = recipe;
+    const { ingredients } = recipe;
+    const { description } = recipe;
     const includesInName = name.toLowerCase().includes(query);
     const includesInDescription = description.toLowerCase().includes(query);
     const includesInIngredients = ingredients.find((ingredient) => ingredient.ingredient.toLowerCase().includes(query));
