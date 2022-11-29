@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-loop-func */
 /* eslint-disable import/extensions */
 import RecipeFactory from '../factories/recipeFactory.js';
@@ -28,6 +29,11 @@ let dataListValues = {};
  * Récupération des données des recettes de recipes.json
  */
 
+/**
+ * Récupération des données des recettes de recipes.json
+ * @returns La liste de toutes les recettes
+ */
+
 async function getRecipes() {
   const response = await fetch('data/recipes.json');
   const res = await response.json();
@@ -46,7 +52,10 @@ async function getRecipes() {
 }
 
 /**
- *
+ * Tri par mot clé, barre de recherche
+ * @param {*} recipes
+
+ * @returns La liste des recettes si il y a une correspondance avec le titre, la desc et ing
  */
 function sortRecipesByKeywords(recipes) {
   const results = [];
@@ -87,9 +96,9 @@ function sortRecipesByKeywords(recipes) {
 }
 
 /**
- * Tri en fonction des filtres ingrédients
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou le(s) tag(s) ingredient sélectionné(s)
  */
-
 function sortRecipesByIngredientsTags(recipes) {
   if (listIngredientTag.length === 0) {
     return recipes;
@@ -122,9 +131,9 @@ function sortRecipesByIngredientsTags(recipes) {
 }
 
 /**
- * Tri en fonction des filtres appareils
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou les tag(s) appareil(s) sélectionné(s)
  */
-
 function sortRecipesBySetTags(recipes) {
   if (listSetTag.length === 0) {
     return recipes;
@@ -156,9 +165,9 @@ function sortRecipesBySetTags(recipes) {
 }
 
 /**
- * Tri en fonction des filtres ustensiles
+ * @param {*} recipes
+ * @returns La liste des recettes si il y a une correspondance avec le ou les tag(s) ustensile sélectionné(s)
  */
-
 function sortRecipesByToolsTags(recipes) {
   if (listToolTag.length === 0) {
     return recipes;
@@ -187,7 +196,8 @@ function sortRecipesByToolsTags(recipes) {
 }
 
 /**
- * Afficher la liste des recettes
+ * Afficher la liste des recettes grâce à RecipeCard dans recipesSection
+ * @param {*} recipesToDisplay
  */
 
 function dislpayRecipes(recipesToDisplay) {
@@ -197,7 +207,8 @@ function dislpayRecipes(recipesToDisplay) {
 }
 
 /**
- * Trie toutes les recettes
+ * @param {*} allRecipesToFilter
+ * @returns Toutes les recettes triées en fonction des quatre tris, affiche les filtres et mets à jour les recettes
  */
 
 function sortAll(allRecipesToFilter) {
@@ -215,13 +226,14 @@ function sortAll(allRecipesToFilter) {
 }
 
 /**
- * Supprimer les tags
+ *  Supprimer les tags
+ * @param {*} e
+ * @param {*} name
+ * @param {*} tagValue
  */
 function removeTag(e, name, tagValue) {
   const tagSection = e.currentTarget;
   tagSection.remove();
-
-  // appeler sortall pour refaire tout le tri
 
   if (name === 'tool') {
     // listToolTag est egale a lui-meme moins les élements qui ne respectent pas la conditions
@@ -255,6 +267,8 @@ function removeTag(e, name, tagValue) {
 
 /**
  * Afficher les tags
+ * @param {*} e
+ * @param {*} name
  */
 function displayTag(e, name) {
   const tagValue = e.target.innerHTML;
@@ -282,7 +296,10 @@ function displayTag(e, name) {
   tagSection.addEventListener('click', (event) => removeTag(event, name, tagValue));
 }
 
-// permet de mettre à jour les données du filtre ingrêdient
+/**
+ *  Met à jour les données du filtre ingrédient
+ * @param {*} componentOptions
+ */
 function updateComponentFilter(componentOptions) {
   const componentFilterSection = document.querySelector('.components_filter');
 
@@ -316,7 +333,10 @@ function updateComponentFilter(componentOptions) {
   }
 }
 
-// permet de recuperer la valeur de la recherche et de la comparer
+/**
+ * Recherche les données du filtre ingrédient
+ * @param {*} e
+ */
 function componentFilterSearch(e) {
   const { value } = e.target;
   const componentOptions = [];
@@ -330,6 +350,11 @@ function componentFilterSearch(e) {
 
   updateComponentFilter(componentOptions);
 }
+
+/**
+ * Met à jour les données du filtre ustensile
+ * @param {*} toolOptions
+ */
 
 function updateToolFilter(toolOptions) {
   const toolFilterSection = document.querySelector('.tools_filter');
@@ -367,7 +392,10 @@ function updateToolFilter(toolOptions) {
   }
 }
 
-// permet de recuperer la valeur de la recherche et de la comparer
+/**
+ * Recherche les données du filtre ustensile
+ * @param {*} e
+ */
 function toolFilterSearch(e) {
   const { value } = e.target;
   const toolsOptions = [];
@@ -378,6 +406,11 @@ function toolFilterSearch(e) {
   }
   updateToolFilter(toolsOptions);
 }
+
+/**
+ * Met à jour les données du filtre appareil
+ * @param {*} setOptions
+ */
 
 function updateSetFilter(setOptions) {
   const setFilterSection = document.querySelector('.sets_filter');
@@ -415,6 +448,10 @@ function updateSetFilter(setOptions) {
   }
 }
 
+/**
+ * Recherche les données du filtre appareil
+ * @param {*} e
+ */
 function setFilterSearch(e) {
   const { value } = e.target;
   const setOptions = [];
@@ -427,7 +464,10 @@ function setFilterSearch(e) {
   updateSetFilter(setOptions);
 }
 
-// permet de fermer les filtres
+/**
+ * permet de fermer les filtres
+ * @param {*} item
+ */
 function closeFilterOptions(item) {
   item.classList.remove('opened');
   const filterLabel = item.querySelector('.filter-label');
@@ -436,7 +476,10 @@ function closeFilterOptions(item) {
   filterSearch.style.display = 'none';
 }
 
-// permet d'ouvrir les filtres
+/**
+ * permet d'ouvrir les filtres
+ * @param {*} item
+ */
 function openFilterOptions(item) {
   item.classList.add('opened');
 
@@ -449,7 +492,10 @@ function openFilterOptions(item) {
   filterInput.focus();
 }
 
-// permet d'ouvrir ou de fermer les filtres
+/**
+ * permet d'ouvrir ou de fermer les filtres
+ * @param {*} item
+ */
 function triggerFilterOptions(item) {
   if (item.classList.contains('opened')) {
     closeFilterOptions(item);
@@ -498,8 +544,9 @@ setsFilterInput.addEventListener('keyup', (e) => {
 
 /**
  * Affiche les filtres sans doublons et dans l'ordre alphabétique
+ * @param {*} filterList
+ * @returns La liste d'un filtre sans doublon et trié
  */
-
 function unique(filterList) {
   // permet de supprimer les doublons
   const results = [];
@@ -517,8 +564,9 @@ function unique(filterList) {
 
 /**
  * Récupération des données des filtres
+ * @param {*} recipes
+ * @returns La liste des ingredients && ustensile && appareil sans doublon
  */
-
 function dataList(recipes) {
   let componentsOption = [];
   const toolOption = [];
@@ -546,6 +594,7 @@ function dataList(recipes) {
 
 /**
  * Mettre à jour la liste des recettes
+ * @param {*} recipesToDisplay
  */
 function updateDisplayRecipes(recipesToDisplay) {
   removeDisplayRecipes();
