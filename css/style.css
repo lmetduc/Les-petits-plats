@@ -69,7 +69,6 @@ body {
   /* max-width: 200px; */
   margin:20px 0 10px  0;
   justify-content:left;
-  align-items: left;
   object-fit: cover;
   cursor: pointer;
   position: relative;
@@ -121,8 +120,6 @@ body {
 
 .filter_unit {
   width:520px;
-  wrap:nowrap;
-
 }
 
 .filter-search input {
